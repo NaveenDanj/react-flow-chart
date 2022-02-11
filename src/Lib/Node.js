@@ -14,4 +14,10 @@ class Node {
         return this.data;
     }
 
+    setNextNode(node){
+        this.next = node;
+    }
+
 }
+
+export default Node;

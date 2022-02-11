@@ -15,6 +15,8 @@ import InputNode from '../Nodes/InputNode';
 import OutputNode from '../Nodes/OutputNode';
 import SetNode from '../Nodes/SetNode';
 
+import Node from '../../Lib/Node';
+
 
 //adding process node
 
@@ -37,12 +39,15 @@ function SideBarNodeList() {
             ) },
             position: { x: 250, y: 25 },
             style: { border: '1px solid #777', width : 'auto'   },
-            isHidden : false
+            isHidden : false,
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , null)
         }
 
         lastNodes.push(newNode);
         dispatch(resetNodes())
         dispatch( setNodes(lastNodes) );
+
+        console.log('the nodes are ' , Nodes);
     }
 
     const handleAddInputNode = () => {
@@ -57,7 +62,7 @@ function SideBarNodeList() {
             position: { x: 250, y: 25 },
             isHidden : false,
             style: { border: '1px solid #777', width : 'auto'   },
-
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , null)
         }
 
         lastNodes.push(newNode);
@@ -78,7 +83,7 @@ function SideBarNodeList() {
             position: { x: 250, y: 25 },
             isHidden : false,
             style: { border: '1px solid #777', width : 'auto'   },
-
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , null)
         }
 
         lastNodes.push(newNode);
@@ -98,7 +103,7 @@ function SideBarNodeList() {
             position: { x: 250, y: 25 },
             isHidden : false,
             style: { border: '1px solid #777', width : 'auto'   },
-
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , null)
         }
 
         lastNodes.push(newNode);
@@ -118,13 +123,17 @@ function SideBarNodeList() {
             position: { x: 250, y: 25 },
             isHidden : false,
             style: { border: '1px solid #777', width : 'auto'   },
-
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , null)
         }
 
         lastNodes.push(newNode);
         dispatch(resetNodes())
         dispatch( setNodes(lastNodes) );
 
+    }
+
+    const showNodes = () => {
+        console.log('the nodes are ' , Nodes);
     }
 
 
@@ -164,6 +173,13 @@ function SideBarNodeList() {
                     <MemoryIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Setter'} />
+            </ListItem>
+
+            <ListItem onClick={() => showNodes()} button key={"Show List"}>
+                <ListItemIcon>
+                    <MemoryIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Show List'} />
             </ListItem>
 
 
