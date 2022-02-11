@@ -1,5 +1,7 @@
-import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import About from "../pages/About";
+import Home from "../pages/Home";
+import NotFound from "../pages/NotFound";
 
 
 const Navigation = () => {
@@ -7,13 +9,11 @@ const Navigation = () => {
     return (
 
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout />}>
+           <Routes>
+                <Route path="/" element={<Home />}/>
                 <Route index element={<Home />} />
-                <Route path="blogs" element={<Blogs />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="*" element={<NoPage />} />
-                </Route>
+                <Route path="about" element={<About />} />
+                <Route path="*" element={<otFound />} />
             </Routes>
         </BrowserRouter>
 
@@ -21,3 +21,5 @@ const Navigation = () => {
 
 
 }
+
+export default Navigation;
