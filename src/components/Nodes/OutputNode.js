@@ -10,11 +10,11 @@ function OutputNode() {
   return (
     <div>
         <label>Output</label>
-        <Grid container spacing={2}>
+        <Grid style={{ backgroundColor : 'white' }} container spacing={0}>
 
-            <Grid item xs={4}>
-                <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <TextField id="outlined-basic" label="Value" variant="outlined" size="small" />
+            <Grid  item xs={4}>
+                <FormControl style={{ width : '100%' }} sx={{ m: 1, minWidth: 80 }}>
+                    <TextField id="outlined-basic" label="Display Text" variant="outlined" size="small" />
                 </FormControl>
             </Grid>
 

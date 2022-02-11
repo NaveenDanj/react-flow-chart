@@ -12,6 +12,7 @@ import {resetNodes , setNodes } from '../../Store/NodeSlice'
 import ProcessNode from '../Nodes/ProcessNode';
 import StartEndNode from '../Nodes/StartEndNode';
 import InputNode from '../Nodes/InputNode';
+import OutputNode from '../Nodes/OutputNode';
 
 
 //adding process node
@@ -85,6 +86,25 @@ function SideBarNodeList() {
     
     }
 
+    const handelAddOutputNode = () => {
+        let lastNodes =[...Nodes];
+
+        let newNode = {
+            id :  Nodes.length + 1 + '',
+            data: { label: (
+                <OutputNode />
+            ) },
+            position: { x: 250, y: 25 },
+            isHidden : false,
+            style: { border: '1px solid #777', width : 'auto'   },
+
+        }
+
+        lastNodes.push(newNode);
+        dispatch(resetNodes())
+        dispatch( setNodes(lastNodes) );
+    }
+
 
     return (
         <List>
@@ -108,6 +128,13 @@ function SideBarNodeList() {
                     <MemoryIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Input'} />
+            </ListItem>
+
+            <ListItem onClick={() => handelAddOutputNode()} button key={"Output"}>
+                <ListItemIcon>
+                    <MemoryIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Output'} />
             </ListItem>
 
 

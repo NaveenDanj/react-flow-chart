@@ -1,0 +1,11 @@
+class Node {
+
+    constructor(){
+
+    }
+
+    getNextNode(){
+        
+    }
+
+}
