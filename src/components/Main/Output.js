@@ -2,7 +2,7 @@ import React from 'react'
 
 function Output() {
   return (
-    <div style={{ backgroundColor : 'green' , height : '18vh'}}>Output</div>
+    <div style={{ backgroundColor : 'green' , height : '15vh' , marginTop : 70}}>Output</div>
   )
 }
 

@@ -136,16 +136,6 @@ export default function MainDrawer() {
         </List>
         <Divider />
         
-        {/* <List>
-          
-          <ListItem button key={"Process"}>
-            <ListItemIcon>
-              <MemoryIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Process'} />
-          </ListItem>
-          
-        </List> */}
 
         <SideBarNodeList />
 
