@@ -11,6 +11,7 @@ import {resetNodes , setNodes } from '../../Store/NodeSlice'
 
 import ProcessNode from '../Nodes/ProcessNode';
 import StartEndNode from '../Nodes/StartEndNode';
+import InputNode from '../Nodes/InputNode';
 
 
 //adding process node
@@ -48,9 +49,13 @@ function SideBarNodeList() {
 
         let newNode = {
             id :  Nodes.length + 1 + '',
-            data: { label: 'Input Node' },
+            data: { label: (
+                <InputNode />
+            ) },
             position: { x: 250, y: 25 },
-            isHidden : false
+            isHidden : false,
+            style: { border: '1px solid #777', width : 'auto'   },
+
         }
 
         lastNodes.push(newNode);
@@ -104,6 +109,7 @@ function SideBarNodeList() {
                 </ListItemIcon>
                 <ListItemText primary={'Input'} />
             </ListItem>
+
 
         </List>
     )
