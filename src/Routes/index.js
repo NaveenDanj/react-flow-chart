@@ -13,7 +13,7 @@ const Navigation = () => {
                 <Route path="/" element={<Home />}/>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
-                <Route path="*" element={<otFound />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
 
