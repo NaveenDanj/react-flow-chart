@@ -7,9 +7,8 @@ import NotFound from "../pages/NotFound";
 const Navigation = () => {
 
     return (
-
         <BrowserRouter>
-           <Routes>
+            <Routes>
                 <Route path="/" element={<Home />}/>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
