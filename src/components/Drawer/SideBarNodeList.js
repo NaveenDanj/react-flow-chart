@@ -7,9 +7,9 @@ import ListItemText from '@mui/material/ListItemText';
 import MemoryIcon from '@mui/icons-material/Memory';
 
 import { useSelector , useDispatch  } from 'react-redux';
-import { addNode , resetNodes , setNodes } from '../../Store/NodeSlice'
+import {resetNodes , setNodes } from '../../Store/NodeSlice'
 
-
+import ProcessNode from '../Nodes/ProcessNode';
 
 
 //adding process node
@@ -28,8 +28,11 @@ function SideBarNodeList() {
 
         let newNode = {
             id :  Nodes.length + 1 + '',
-            data: { label: 'Process Node' },
+            data: { label: (
+                <ProcessNode />
+            ) },
             position: { x: 250, y: 25 },
+            style: { border: '1px solid #777', width : 'auto'   },
             isHidden : false
         }
 
