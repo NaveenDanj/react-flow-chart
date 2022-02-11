@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactFlow from 'react-flow-renderer';
+import { useSelector } from 'react-redux';
+
+
 
 const elements = [
     {
@@ -28,6 +31,13 @@ const elements = [
 
 
 function Canvas() {
+
+  const Nodes = useSelector((state) => state.Nodes.nodes);
+
+  useEffect(() => {
+    console.log('the node values are ' , Nodes);
+  },[])
+
   return (
     <div style={{ height: '70vh' , backgroundColor : 'white' , borderWidth : 1 , borderColor : 'gray' }}>
         <ReactFlow elements={elements} />

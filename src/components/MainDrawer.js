@@ -23,6 +23,7 @@ import MemoryIcon from '@mui/icons-material/Memory';
 import { useNavigate } from 'react-router-dom';
 import Canvas from './Main/Canvas';
 import Output from './Main/Output';
+import SideBarNodeList from './Drawer/SideBarNodeList';
 
 
 const drawerWidth = 240;
@@ -134,7 +135,8 @@ export default function MainDrawer() {
           ))}
         </List>
         <Divider />
-        <List>
+        
+        {/* <List>
           
           <ListItem button key={"Process"}>
             <ListItemIcon>
@@ -143,7 +145,10 @@ export default function MainDrawer() {
             <ListItemText primary={'Process'} />
           </ListItem>
           
-        </List>
+        </List> */}
+
+        <SideBarNodeList />
+
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
