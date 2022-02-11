@@ -10,11 +10,15 @@ export const nodesSlice = createSlice({
   reducers: {
     
     setVar : (state , action) => {
-        state.vars[action.payload.key] = action.payload.value;
+        state.vars[action.payload.name] = {
+            key : action.payload.key,
+            name : action.payload.name,
+            value : action.payload.value,
+        }
     },
 
     getVar : (state , action) => {
-        return state.vars[action.payload.key];
+        return state.vars[action.payload.name];
     },
 
     resetVars : (state) => {
@@ -22,13 +26,13 @@ export const nodesSlice = createSlice({
     },
 
     deleteVar : (state , action) => {
-        delete state.vars[action.payload.key];
+        delete state.vars[action.payload.name];
     }
-    
+
 
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addNode , resetNodes , setNodes } = nodesSlice.actions
+export const { setVar , getVar , resetVars , deleteVar } = nodesSlice.actions
 export default nodesSlice.reducer
