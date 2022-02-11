@@ -15,13 +15,14 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
+import MemoryIcon from '@mui/icons-material/Memory';
 
 import { useNavigate } from 'react-router-dom';
-
-import Navigation from '../Routes';
+import Canvas from './Main/Canvas';
+import Output from './Main/Output';
 
 
 const drawerWidth = 240;
@@ -73,7 +74,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function MainDrawer() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
@@ -99,7 +100,7 @@ export default function MainDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            Flow-Chart
           </Typography>
         </Toolbar>
       </AppBar>
@@ -134,22 +135,22 @@ export default function MainDrawer() {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          
+          <ListItem button key={"Process"}>
+            <ListItemIcon>
+              <MemoryIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Process'} />
+          </ListItem>
+          
         </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
           
-        
+        <Canvas />
 
-
+        <Output />
 
       </Main>
     </Box>
