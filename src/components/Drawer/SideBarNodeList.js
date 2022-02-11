@@ -13,6 +13,7 @@ import ProcessNode from '../Nodes/ProcessNode';
 import StartEndNode from '../Nodes/StartEndNode';
 import InputNode from '../Nodes/InputNode';
 import OutputNode from '../Nodes/OutputNode';
+import SetNode from '../Nodes/SetNode';
 
 
 //adding process node
@@ -105,6 +106,27 @@ function SideBarNodeList() {
         dispatch( setNodes(lastNodes) );
     }
 
+    const handleAddSetterNode = () => {
+
+        let lastNodes =[...Nodes];
+
+        let newNode = {
+            id :  Nodes.length + 1 + '',
+            data: { label: (
+                <SetNode />
+            ) },
+            position: { x: 250, y: 25 },
+            isHidden : false,
+            style: { border: '1px solid #777', width : 'auto'   },
+
+        }
+
+        lastNodes.push(newNode);
+        dispatch(resetNodes())
+        dispatch( setNodes(lastNodes) );
+
+    }
+
 
     return (
         <List>
@@ -135,6 +157,13 @@ function SideBarNodeList() {
                     <MemoryIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Output'} />
+            </ListItem>
+
+            <ListItem onClick={() => handleAddSetterNode()} button key={"Setter"}>
+                <ListItemIcon>
+                    <MemoryIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Setter'} />
             </ListItem>
 
 
