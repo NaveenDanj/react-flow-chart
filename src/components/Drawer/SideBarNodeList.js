@@ -10,6 +10,7 @@ import { useSelector , useDispatch  } from 'react-redux';
 import {resetNodes , setNodes } from '../../Store/NodeSlice'
 
 import ProcessNode from '../Nodes/ProcessNode';
+import StartEndNode from '../Nodes/StartEndNode';
 
 
 //adding process node
@@ -58,9 +59,37 @@ function SideBarNodeList() {
 
     }
 
+    const handleAddStartEndNode = () => {
+            
+        let lastNodes =[...Nodes];
+
+        let newNode = {
+            id :  Nodes.length + 1 + '',
+            data: { label: (
+                <StartEndNode />
+            ) },
+            position: { x: 250, y: 25 },
+            isHidden : false,
+            style: { border: '1px solid #777', width : 'auto'   },
+
+        }
+
+        lastNodes.push(newNode);
+        dispatch(resetNodes())
+        dispatch( setNodes(lastNodes) );
+    
+    }
+
 
     return (
         <List>
+
+            <ListItem onClick={() => handleAddStartEndNode()} button key={"Start/End"}>
+                <ListItemIcon>
+                    <MemoryIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Start/End'} />
+            </ListItem>
 
             <ListItem onClick={() => handleAddProcessNode()} button key={"Process"}>
                 <ListItemIcon>
