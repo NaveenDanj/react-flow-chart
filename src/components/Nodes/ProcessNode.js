@@ -17,18 +17,18 @@ function ProcessNode() {
 
             <Grid item xs={4}>
                 <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Var Name</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        label="Age"
+                        label="Var Name"
                         value={10}
                         size="small"
 
                     >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        <MenuItem value={10}>X</MenuItem>
+                        <MenuItem value={20}>Y</MenuItem>
+                        <MenuItem value={30}>i</MenuItem>
                     </Select>
 
                 </FormControl>
@@ -38,18 +38,25 @@ function ProcessNode() {
             <Grid item xs={4}>
                 
                 <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Operator</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            label="Age"
+                            label="Operator"
                             value={10}
                             size="small"
 
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            <MenuItem value={10}>+</MenuItem>
+                            <MenuItem value={20}>-</MenuItem>
+                            <MenuItem value={30}>/</MenuItem>
+                            <MenuItem value={30}>*</MenuItem>
+                            <MenuItem value={30}>+=</MenuItem>
+                            <MenuItem value={30}>-=</MenuItem>
+                            <MenuItem value={30}>/=</MenuItem>
+                            <MenuItem value={30}>*=</MenuItem>
+                            <MenuItem value={30}>%</MenuItem>
+
                         </Select>
 
                 </FormControl>
@@ -59,7 +66,7 @@ function ProcessNode() {
 
             <Grid item xs={4}>
                 <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <TextField id="outlined-basic" label="Outlined" variant="outlined" size="small" />
+                    <TextField id="outlined-basic" label="Value" variant="outlined" size="small" />
                 </FormControl>
             </Grid>
 
