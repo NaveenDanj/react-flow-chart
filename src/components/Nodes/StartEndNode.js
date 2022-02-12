@@ -5,37 +5,55 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+import { useSelector , useDispatch  } from 'react-redux';
 
-function StartEndNode() {
-  return (
-    <div>
-        <label>Start/End</label>
-        <Grid container spacing={2}>
 
-            <Grid item xs={12}>
-                
-                <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Start/End"
-                        value={10}
-                        size="small"
+function StartEndNode(props) {
 
-                    >
-                        <MenuItem value={10}>Start</MenuItem>
-                        <MenuItem value={20}>End</MenuItem>
-                    </Select>
+    const Nodes = useSelector((state) => state.Nodes.nodes);
 
-                </FormControl>
+    const handleChangeStartEnd = (val) => {
 
+        for(let i = 0; i < Nodes.length; i++){
+
+            if(Nodes[i].id == props.id){
+                Nodes[i].nodeData.setCodeBlock(val);
+            }
+
+        }
+
+    }
+    
+
+    return (
+        <div>
+            <label>Start/End</label>
+            <Grid container spacing={2}>
+
+                <Grid item xs={12}>
+                    
+                    <FormControl sx={{ m: 1, minWidth: 80 }}>
+                        <InputLabel id="demo-simple-select-label">Start/End</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="Start/End"
+                            size="small"
+                            onChange={(e) => handleChangeStartEnd(e.target.value)}
+
+                        >
+                            <MenuItem value={'start'}>Start</MenuItem>
+                            <MenuItem value={'end'}>End</MenuItem>
+                        </Select>
+
+                    </FormControl>
+
+
+                </Grid>
 
             </Grid>
-
-        </Grid>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default StartEndNode
