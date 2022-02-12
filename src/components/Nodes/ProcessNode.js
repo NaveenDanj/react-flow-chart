@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useState} from 'react'
 
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,14 +7,46 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 
+import IconButton from '@mui/material/IconButton';
+import DoneIcon from '@mui/icons-material/Done';
+
+import { useSelector} from 'react-redux';
 
 
 function ProcessNode(props) {
+
+    const [varName , setVarName] = useState('');
+    const [operator , setOperator] = useState('');
+    const [varValue , setVarValue] = useState('');
     
+    const Vars = Object.values(useSelector((state) => state.Vars.vars));
+    const Nodes = useSelector((state) => state.Nodes.nodes);
+
+    const handleSet = () => {
+
+        for(let i = 0; i < Nodes.length; i++){
+
+            if(Nodes[i].id === props.id){
+                Nodes[i].nodeData.codeBlock = `${varName} ${operator} ${varValue}`;
+                break;
+            }
+
+        }
+
+        console.log('Node list : ' , Nodes);
+
+    }
+
+
   
     return (
         <div>
             <label>Process</label>
+
+            <IconButton onClick={() => handleSet()} size="small">
+                <DoneIcon size="small" />
+            </IconButton>
+
             <Grid container spacing={2}>
 
                 <Grid item xs={4}>
@@ -24,14 +56,10 @@ function ProcessNode(props) {
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             label="Var Name"
-                            value={10}
                             size="small"
-
+                            onChange={(e) => setVarName(e.target.value) }
                         >   
-                            {}
-                            <MenuItem value={10}>X</MenuItem>
-                            <MenuItem value={20}>Y</MenuItem>
-                            <MenuItem value={30}>i</MenuItem>
+                            {Vars.map((item) =>  <MenuItem key={item.key} value={item.name}>{item.name}</MenuItem>)}
                         </Select>
 
                     </FormControl>
@@ -46,20 +74,22 @@ function ProcessNode(props) {
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 label="Operator"
-                                value={10}
                                 size="small"
-
-                            >
-                                <MenuItem value={10}>+</MenuItem>
-                                <MenuItem value={20}>-</MenuItem>
-                                <MenuItem value={30}>/</MenuItem>
-                                <MenuItem value={30}>*</MenuItem>
-                                <MenuItem value={30}>+=</MenuItem>
-                                <MenuItem value={30}>-=</MenuItem>
-                                <MenuItem value={30}>/=</MenuItem>
-                                <MenuItem value={30}>*=</MenuItem>
-                                <MenuItem value={30}>%</MenuItem>
-
+                                onChange={(e) => setOperator(e.target.value) }
+                            >   
+                                <MenuItem value={'='}>=</MenuItem>
+                                <MenuItem value={'-'}>-</MenuItem>
+                                <MenuItem value={'/'}>/</MenuItem>
+                                <MenuItem value={'*'}>*</MenuItem>
+                                <MenuItem value={'+='}>+=</MenuItem>
+                                <MenuItem value={'-='}>-=</MenuItem>
+                                <MenuItem value={'/='}>/=</MenuItem>
+                                <MenuItem value={'*='}>*=</MenuItem>
+                                <MenuItem value={'%'}>%</MenuItem>
+                                <MenuItem value={'+'}>+</MenuItem>
+                                <MenuItem value={'-'}>-</MenuItem>
+                                <MenuItem value={'/'}>/</MenuItem>
+                                <MenuItem value={'*'}>*</MenuItem>
                             </Select>
 
                     </FormControl>
@@ -69,10 +99,9 @@ function ProcessNode(props) {
 
                 <Grid item xs={4}>
                     <FormControl sx={{ m: 1, minWidth: 80 }}>
-                        <TextField id="outlined-basic" label="Value" variant="outlined" size="small" />
+                        <TextField onChange={(e) => setVarValue(e.target.value)} id="outlined-basic" label="Value" variant="outlined" size="small" />
                     </FormControl>
                 </Grid>
-
 
             </Grid>
         </div>

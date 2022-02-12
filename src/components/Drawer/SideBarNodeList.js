@@ -18,10 +18,6 @@ import SetNode from '../Nodes/SetNode';
 import Node from '../../Lib/Node';
 
 
-//adding process node
-
-
-
 
 function SideBarNodeList() {
 
@@ -40,7 +36,7 @@ function SideBarNodeList() {
             position: { x: 250, y: 25 },
             style: { border: '1px solid #777', width : 'auto'   },
             isHidden : false,
-            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , null)
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , 'Process' , null)
         }
 
         lastNodes.push(newNode);
@@ -62,7 +58,7 @@ function SideBarNodeList() {
             position: { x: 250, y: 25 },
             isHidden : false,
             style: { border: '1px solid #777', width : 'auto'   },
-            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , null)
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway', 'Input' , null)
         }
 
         lastNodes.push(newNode);
@@ -83,7 +79,7 @@ function SideBarNodeList() {
             position: { x: 250, y: 25 },
             isHidden : false,
             style: { border: '1px solid #777', width : 'auto'   },
-            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , null)
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway', 'StartEnd' , null)
         }
 
         lastNodes.push(newNode);
@@ -103,7 +99,7 @@ function SideBarNodeList() {
             position: { x: 250, y: 25 },
             isHidden : false,
             style: { border: '1px solid #777', width : 'auto'   },
-            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , null)
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway', 'Output' , null)
         }
 
         lastNodes.push(newNode);
@@ -123,7 +119,7 @@ function SideBarNodeList() {
             position: { x: 250, y: 25 },
             isHidden : false,
             style: { border: '1px solid #777', width : 'auto'   },
-            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway' , null)
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'oneway', 'Setter' , null)
         }
 
         lastNodes.push(newNode);

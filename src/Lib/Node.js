@@ -1,10 +1,11 @@
 class Node {
 
-    constructor(data , type , next){
+    constructor(data , type , nodeBlockType , next){
         this.next = next;
         this.data = data;
         this.nodeType = type; //oneway or twoway
         this.codeBlock = null;
+        this.type = nodeBlockType
     }
 
     getNextNode(){
