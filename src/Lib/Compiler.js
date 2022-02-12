@@ -59,7 +59,10 @@ class Compiler {
         let diplayText = codeBlockArr[1];
         let varName = codeBlockArr[2];
 
-        let output = `${diplayText} ${this._get_var_value(varName)}`;
+        let output = {
+            key : Date.now(),
+            output : `${diplayText} ${this._get_var_value(varName)}`
+        }
         this.dispatch( this.reducers.addOutput(output) );
     }
 
