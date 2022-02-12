@@ -24,6 +24,7 @@ import { useNavigate } from 'react-router-dom';
 import Canvas from './Main/Canvas';
 import Output from './Main/Output';
 import SideBarNodeList from './Drawer/SideBarNodeList';
+import PlayScript from './Drawer/PlayScript';
 
 
 const drawerWidth = 240;
@@ -100,9 +101,16 @@ export default function MainDrawer() {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography variant="h6" noWrap component="div">
             Flow-Chart
           </Typography>
+
+          <Box sx={{ flexGrow: 1 }} />
+
+          <PlayScript />
+
+
         </Toolbar>
       </AppBar>
       <Drawer

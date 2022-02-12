@@ -4,9 +4,6 @@ import { useSelector , useDispatch } from 'react-redux';
 import { setNodes } from '../../Store/NodeSlice'
 
 
-
-
-
 function Canvas() {
 
   const Nodes = useSelector((state) => state.Nodes.nodes);
@@ -17,9 +14,26 @@ function Canvas() {
   }
 
   const onConnect = (params) => {
-    console.log(Nodes);
+    console.log(params);
     dispatch( setNodes( addEdge(params, Nodes) ) );
     console.log(Nodes);
+
+    for(let i = 0; i < Nodes.length; i++){
+
+      if(Nodes[i].id === params.source){
+        Nodes[i].nodeData.setNextNode(null);
+
+        for(let j = 0; j < Nodes.length; j++){
+          if(Nodes[j].id === params.target){
+            Nodes[i].nodeData.setNextNode(Nodes[j].nodeData);
+            break; 
+          }
+        }
+
+      }
+
+    }
+
   } 
 
 

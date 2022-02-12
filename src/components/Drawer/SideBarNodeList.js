@@ -35,7 +35,7 @@ function SideBarNodeList() {
         let newNode = {
             id :  Nodes.length + 1 + '',
             data: { label: (
-                <ProcessNode />
+                <ProcessNode id={Nodes.length + 1 + ''} />
             ) },
             position: { x: 250, y: 25 },
             style: { border: '1px solid #777', width : 'auto'   },
@@ -57,7 +57,7 @@ function SideBarNodeList() {
         let newNode = {
             id :  Nodes.length + 1 + '',
             data: { label: (
-                <InputNode />
+                <InputNode id={Nodes.length + 1 + ''} />
             ) },
             position: { x: 250, y: 25 },
             isHidden : false,
@@ -78,7 +78,7 @@ function SideBarNodeList() {
         let newNode = {
             id :  Nodes.length + 1 + '',
             data: { label: (
-                <StartEndNode />
+                <StartEndNode id={Nodes.length + 1 + ''} />
             ) },
             position: { x: 250, y: 25 },
             isHidden : false,
@@ -98,7 +98,7 @@ function SideBarNodeList() {
         let newNode = {
             id :  Nodes.length + 1 + '',
             data: { label: (
-                <OutputNode />
+                <OutputNode id={Nodes.length + 1 + ''}  />
             ) },
             position: { x: 250, y: 25 },
             isHidden : false,
@@ -118,7 +118,7 @@ function SideBarNodeList() {
         let newNode = {
             id :  Nodes.length + 1 + '',
             data: { label: (
-                <SetNode />
+                <SetNode id={Nodes.length + 1 + ''}  />
             ) },
             position: { x: 250, y: 25 },
             isHidden : false,
