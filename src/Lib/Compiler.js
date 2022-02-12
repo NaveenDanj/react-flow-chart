@@ -24,6 +24,8 @@ class Compiler {
             this.compileEnd(codeBlockArr);
         }else if(codeBlockArr[0] == 'process'){
             this.compileProcess(codeBlockArr);
+        }else if(codeBlockArr[0] == 'output'){
+            this.compileOutput(codeBlockArr);
         }
 
     }
@@ -48,6 +50,17 @@ class Compiler {
         let intialVarValue = this._get_var_value(varName);
         console.log('initial var value is : ' , intialVarValue);
         this.dispatch( this.reducers.updateVar({varName , varValue}) );
+        console.log('initial var value is : ' , intialVarValue);
+
+    }
+
+    compileOutput(codeBlockArr){
+        console.log(codeBlockArr , this.varList);
+        let diplayText = codeBlockArr[1];
+        let varName = codeBlockArr[2];
+
+        let output = `${diplayText} ${this._get_var_value(varName)}`;
+        this.dispatch( this.reducers.addOutput(output) );
     }
 
     _get_var_value(varName){

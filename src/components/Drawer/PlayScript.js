@@ -6,7 +6,7 @@ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import { useSelector , useDispatch} from 'react-redux';
 import Runner from '../../Lib/Runner';
 import {setVar , getVar , resetVars , deleteVar , updateVar} from '../../Store/ScriptVarObjectSlice'
-
+import {addOutput} from '../../Store/OutputSlice'
 
 
 function PlayScript() {
@@ -17,7 +17,7 @@ function PlayScript() {
 
     const handleRunScript = () => {
         console.log('script ran!');
-        let runner = new Runner(Nodes , Vars , dispatch , {setVar , getVar , resetVars , deleteVar , updateVar});
+        let runner = new Runner(Nodes , Vars , dispatch , {setVar , getVar , resetVars , deleteVar , updateVar , addOutput});
         let initNode = null;
 
         for(let i = 0; i < Nodes.length; i++){

@@ -23,6 +23,8 @@ function SideBarNodeList() {
 
     const Nodes = useSelector((state) => state.Nodes.nodes);
     const Vars = useSelector((state) => state.Vars.vars);
+    const Output = useSelector((state) => state.Output.output);
+
     const dispatch = useDispatch();
 
     const handleAddProcessNode = () => {
@@ -132,6 +134,7 @@ function SideBarNodeList() {
     const showNodes = () => {
         console.log('the nodes are ' , Nodes);
         console.log('the var list is ' , Vars);
+        console.log('the output is ' , Output);
     }
 
 
