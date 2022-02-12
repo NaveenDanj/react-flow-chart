@@ -27,7 +27,7 @@ function ProcessNode(props) {
         for(let i = 0; i < Nodes.length; i++){
 
             if(Nodes[i].id === props.id){
-                Nodes[i].nodeData.codeBlock = `${varName} ${operator} ${varValue}`;
+                Nodes[i].nodeData.setCodeBlock(`process-${varName}-${operator}-${varValue}`);
                 break;
             }
 
