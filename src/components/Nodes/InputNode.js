@@ -6,39 +6,69 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 
-function InputNode() {
-  return (
-    <div>
-        <label>Input</label>
-        <Grid container spacing={2}>
+import IconButton from '@mui/material/IconButton';
+import DoneIcon from '@mui/icons-material/Done';
 
-            <Grid item xs={4}>
-                <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <InputLabel id="demo-simple-select-label">Var Name</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Var Name"
-                        value={10}
-                        size="small"
 
-                    >
-                        <MenuItem value={10}>X</MenuItem>
-                        <MenuItem value={20}>Y</MenuItem>
-                        <MenuItem value={30}>i</MenuItem>
-                    </Select>
-                </FormControl>
+import { useSelector} from 'react-redux';
+
+
+function InputNode(props) {
+
+    const Vars = Object.values(useSelector((state) => state.Vars.vars));
+    const Nodes = useSelector((state) => state.Nodes.nodes);
+
+    const [displayText , setDisplayText] = React.useState('');
+    const [varName , setVarName] = React.useState('');
+
+    const handleSet = () => {
+            
+        console.log('handle set : ' , displayText , varName);
+
+        for(let i = 0; i < Nodes.length; i++){
+
+            if(Nodes[i].id === props.id){
+                Nodes[i].nodeData.setCodeBlock(`input-'${varName}'-${displayText}`);
+                console.log('node is : ' , Nodes[i]);
+                break;
+            }
+
+        }
+    
+    }
+
+    return (
+        <div>
+            <label>Input</label>
+            <IconButton onClick={() => handleSet()} size="small">
+                <DoneIcon size="small" />
+            </IconButton>
+            <Grid container spacing={2}>
+
+                <Grid item xs={4}>
+                    <FormControl sx={{ m: 1, minWidth: 80 }}>
+                        <InputLabel id="demo-simple-select-label">Var Name</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="Var Name"
+                            size="small"
+                            onChange={(e) => setVarName(e.target.value)}
+                        >
+                            {Vars.map((item) => <MenuItem key={item.name} value={item.name}>{item.name}</MenuItem>)}
+                        </Select>
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={8}>
+                    <FormControl sx={{ m: 1, minWidth: 80 }}>
+                        <TextField onChange={(e) => setDisplayText(e.target.value)} id="outlined-basic" label="Display Text" variant="outlined" size="small" />
+                    </FormControl>
+                </Grid>
+
             </Grid>
-
-            <Grid item xs={8}>
-                <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <TextField id="outlined-basic" label="Display Text" variant="outlined" size="small" />
-                </FormControl>
-            </Grid>
-
-        </Grid>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default InputNode

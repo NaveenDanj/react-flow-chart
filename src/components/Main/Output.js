@@ -6,21 +6,31 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
-import { useSelector} from 'react-redux';
+import {resetOutput} from '../../Store/OutputSlice'
+
+import { useSelector , useDispatch} from 'react-redux';
+
+
 
 
 function Output() {
 
   const OutputList = useSelector((state) => state.Output.output);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log('output list is : ' , OutputList);
   } ,[OutputList]);
 
+  const handleClearOutput = () => {
+    dispatch(resetOutput());
+  }
+
+
   return (
     <div style={{  height : '20vh' , backgroundColor : 'white' ,  marginTop : 10}}>
-      
-      <label>Outputs:</label><br/>
+
+      <label>Outputs:</label> <Button onClick={handleClearOutput}>Clear</Button><br/>
 
       <Box style={{  height : '20vh' }} sx={{ p: 2, border: '1px dashed grey' }}>
 
