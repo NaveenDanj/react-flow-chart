@@ -1,8 +1,11 @@
+import Compiler from "./Compiler";
 class Runner{
 
-    constructor(NodeList){
+    constructor(NodeList , varList , dispatch , reducers){
         this.NodeList = NodeList;
+        this.varList = varList;
         this.commandList = [];
+        this.compiler = new Compiler(varList , dispatch , reducers);
     }
 
 
@@ -15,17 +18,13 @@ class Runner{
 
         if(nextNode.next == null){
             console.log('end of linked list!');
+            this.compiler.compileCommands(this.commandList);
         }else{
             let next = nextNode.next;
             this.run(next);
         }
 
-        this.compiler();
 
-    }
-
-    compiler(){
-        console.log('the command list is ' , this.commandList);
     }
 
 }

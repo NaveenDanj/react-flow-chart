@@ -3,18 +3,21 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
-import { useSelector} from 'react-redux';
+import { useSelector , useDispatch} from 'react-redux';
 import Runner from '../../Lib/Runner';
+import {setVar , getVar , resetVars , deleteVar , updateVar} from '../../Store/ScriptVarObjectSlice'
+
+
 
 function PlayScript() {
 
     const Vars = Object.values(useSelector((state) => state.Vars.vars));
     const Nodes = useSelector((state) => state.Nodes.nodes);
-
+    const dispatch = useDispatch();
 
     const handleRunScript = () => {
         console.log('script ran!');
-        let runner = new Runner(Nodes);
+        let runner = new Runner(Nodes , Vars , dispatch , {setVar , getVar , resetVars , deleteVar , updateVar});
         let initNode = null;
 
         for(let i = 0; i < Nodes.length; i++){
