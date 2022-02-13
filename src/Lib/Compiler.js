@@ -60,12 +60,8 @@ class Compiler {
         let operator = codeBlockArr[2];
         let varValue = codeBlockArr[3];
 
-        let intialVarValue = this._get_var_value(varName);
-        console.log('initial var value is : ' , intialVarValue);
         this.dispatch( this.reducers.updateVar({varName , varValue}) );
         this._set_local_state(varName , varValue);
-        console.log('initial var value is : ' , intialVarValue);
-
     }
 
     compileOutput(codeBlockArr){
