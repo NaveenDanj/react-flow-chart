@@ -28,7 +28,7 @@ function InputNode(props) {
         for(let i = 0; i < Nodes.length; i++){
 
             if(Nodes[i].id === props.id){
-                Nodes[i].nodeData.setCodeBlock(`input-'${varName}'-${displayText}`);
+                Nodes[i].nodeData.setCodeBlock(`input~'${varName}'~${displayText}`);
                 console.log('node is : ' , Nodes[i]);
                 break;
             }

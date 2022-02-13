@@ -27,7 +27,7 @@ class Compiler {
 
         console.log(codeBlock);
 
-        let codeBlockArr = codeBlock.split('-');
+        let codeBlockArr = codeBlock.split('~');
 
         if(codeBlockArr[0] == 'start'){
             this.compileStart(codeBlockArr);
@@ -60,8 +60,38 @@ class Compiler {
         let operator = codeBlockArr[2];
         let varValue = codeBlockArr[3];
 
-        this.dispatch( this.reducers.updateVar({varName , varValue}) );
-        this._set_local_state(varName , varValue);
+        if(varValue.includes('#')){
+            //includes a variable
+            let re = /#(\S+)\b/g;
+            let var_list = [];
+            let m;
+            let varValCopy = varValue;
+            let exec_val;
+
+            let exec_string = '';
+
+            while ((m=re.exec(varValCopy)) !== null) {
+                var_list.push(m[1]);  
+            }
+
+            console.log('var_list : ' , var_list);
+
+            for(let i = 0; i < var_list.length; i++){
+                let var_value = this._get_local_var_value(var_list[i]);
+                let x1 = varValCopy.replaceAll(`#${var_list[i]}` , var_value);
+                let x2 = x1.replaceAll(`#${var_list[i]}` , '');
+                exec_string = x2;
+            }
+            
+            console.log('the cleaned string is ' , this._add_op_to_execute_string('exec_val' , operator , exec_string));
+
+        }else{
+
+        }
+
+
+        // this.dispatch( this.reducers.updateVar({varName , varValue}) );
+        // this._set_local_state(varName , varValue);
     }
 
     compileOutput(codeBlockArr){
@@ -125,6 +155,10 @@ class Compiler {
             }
         }
 
+    }
+
+    _add_op_to_execute_string(varName , op , string){
+        return `${varName} ${op} ${string}`;
     }
 
 }
