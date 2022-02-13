@@ -1,7 +1,7 @@
 import Compiler from "./Compiler";
 class Runner{
 
-    constructor(NodeList , varList , dispatch , reducers){
+    constructor(NodeList  , varList , dispatch , reducers){
         this.NodeList = NodeList;
         this.varList = varList;
         this.commandList = [];

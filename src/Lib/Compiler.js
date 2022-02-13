@@ -4,6 +4,15 @@ class Compiler {
         this.varList = varList;
         this.dispatch = dispatch;
         this.reducers = reducers;
+        this.localState = [];
+        // this.localState = cvarList.map(elem => {
+        //     return Object.assign(elem, {id:2});
+        // });
+
+        for(let i = 0; i < varList.length; i++){
+            this.localState.push({key : varList[i].key , name : varList[i].name , value : varList[i].value});
+        }
+
     }
 
     compileCommands(commandList){
@@ -16,6 +25,8 @@ class Compiler {
 
     compileLine(codeBlock){
 
+        console.log(codeBlock);
+
         let codeBlockArr = codeBlock.split('-');
 
         if(codeBlockArr[0] == 'start'){
@@ -26,6 +37,8 @@ class Compiler {
             this.compileProcess(codeBlockArr);
         }else if(codeBlockArr[0] == 'output'){
             this.compileOutput(codeBlockArr);
+        }else if(codeBlockArr[0] == 'input'){
+            this.compileInput(codeBlockArr);
         }
 
     }
@@ -50,6 +63,7 @@ class Compiler {
         let intialVarValue = this._get_var_value(varName);
         console.log('initial var value is : ' , intialVarValue);
         this.dispatch( this.reducers.updateVar({varName , varValue}) );
+        this._set_local_state(varName , varValue);
         console.log('initial var value is : ' , intialVarValue);
 
     }
@@ -61,10 +75,26 @@ class Compiler {
 
         let output = {
             key : Date.now(),
-            output : `${diplayText} ${this._get_var_value(varName)}`
+            output : `${diplayText} ${this._get_local_var_value(varName)}`
         }
         this.dispatch( this.reducers.addOutput(output) );
     }
+
+
+    compileInput(codeBlockArr){
+        console.log(codeBlockArr);
+        let varName = codeBlockArr[1].replaceAll("'" , "");
+        let displayText = codeBlockArr[2];
+
+        let inp = prompt(displayText);
+
+        console.log('input is : ' , inp);
+        
+        this.dispatch( this.reducers.updateVar({varName : varName , varValue : inp}) );
+        this._set_local_state(varName , inp);
+
+    }
+
 
     _get_var_value(varName){
 
@@ -77,6 +107,29 @@ class Compiler {
 
     }
 
+    _set_local_state(varName , varValue){
+
+        console.log('local state : ' , this.localState , varValue);
+
+        for(let i = 0; i < this.localState.length; i++){
+            if(this.localState[i].name === varName){
+                this.localState[i].value = varValue;
+                return;
+            }
+        }
+
+
+    }
+
+    _get_local_var_value(varName){
+
+        for(let i = 0; i < this.localState.length; i++){
+            if(this.localState[i].name === varName){
+                return this.localState[i].value;
+            }
+        }
+
+    }
 
 }
 

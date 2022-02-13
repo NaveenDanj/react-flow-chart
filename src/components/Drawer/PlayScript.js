@@ -21,7 +21,7 @@ function PlayScript() {
         let initNode = null;
 
         for(let i = 0; i < Nodes.length; i++){
-            if(Nodes[i].nodeData.type === 'StartEnd'){
+            if(Nodes[i].nodeData.type === 'StartEnd' && Nodes[i].nodeData.codeBlock === 'start'){
                 initNode = Nodes[i];
                 break;
             }

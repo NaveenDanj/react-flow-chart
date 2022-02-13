@@ -11,6 +11,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+
+
 import {setVar , deleteVar} from '../../Store/ScriptVarObjectSlice'
 
 
@@ -25,17 +30,30 @@ function SetNode() {
 
     const [varName , setVarName] = useState(null);
     const [varValue , setVarValue] = useState(null);
-
+    const [dataType , setDataType] = useState('string');
 
     const handleAddVar = () => {
-        console.log('the values are : ' , varName , varValue);
-        dispatch(setVar({
+
+        let convertedVarValue = null;
+
+        if(dataType === 'string'){
+            convertedVarValue = varValue;
+        }else if(dataType === 'number'){
+            convertedVarValue = +varValue;
+        }else if(dataType === 'boolean'){
+            convertedVarValue = varValue === 'true';
+        }
+
+        let dataObject = {
             key : Date.now(),
             name : varName ,
-            value : varValue
-        }));
+            value : convertedVarValue,
+            dataType : dataType
+        }
 
-        console.log(Vars);
+        dispatch(setVar(dataObject));
+
+        console.log(dataObject);
     }
 
     const handleDelete = (item) => {
@@ -48,10 +66,30 @@ function SetNode() {
             <label>Setter</label>
             <Grid container spacing={0}>
 
-                <Grid item xs={8}>
+                <Grid item xs={4}>
                     <FormControl sx={{ m: 1, minWidth: 80 }}>
                         <TextField onChange={(e) => setVarName(e.target.value)} id="outlined-basic" label="Var Name" variant="outlined" size="small" />
                     </FormControl>
+                </Grid>
+
+                <Grid item xs={4}>
+
+                    <FormControl sx={{ m: 1, minWidth: 80 }}>
+                        <InputLabel id="demo-simple-select-label">Data Type</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="Var Name"
+                            size="small"
+                            onChange={(e) => setDataType(e.target.value)}
+                        >
+                            <MenuItem value={'string'}>String</MenuItem>
+                            <MenuItem value={'number'}>Number</MenuItem>
+                            <MenuItem value={'boolean'}>Boolean</MenuItem>
+
+                        </Select>
+                    </FormControl>
+
                 </Grid>
 
                 <Grid item xs={2}>
