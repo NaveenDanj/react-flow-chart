@@ -16,6 +16,7 @@ import OutputNode from '../Nodes/OutputNode';
 import SetNode from '../Nodes/SetNode';
 
 import Node from '../../Lib/Node';
+import IfNode from '../Nodes/IfNode';
 
 
 
@@ -131,6 +132,30 @@ function SideBarNodeList() {
 
     }
 
+
+    const handleAddIfNode = () => {
+
+        let lastNodes =[...Nodes];
+
+        let newNode = {
+            id :  Nodes.length + 1 + '',
+            data: { label: (
+                <IfNode id={Nodes.length + 1 + ''}  />
+            ) },
+            position: { x: 250, y: 25 },
+            isHidden : false,
+            style: { border: '1px solid #777', width : 'auto'   },
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'twoWay', 'If' , null)
+        }
+
+        lastNodes.push(newNode);
+        dispatch(resetNodes())
+        dispatch( setNodes(lastNodes) );
+
+    }
+
+
+
     const showNodes = () => {
         console.log('the nodes are ' , Nodes);
         console.log('the var list is ' , Vars);
@@ -174,6 +199,13 @@ function SideBarNodeList() {
                     <MemoryIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Setter'} />
+            </ListItem>
+
+            <ListItem onClick={() => handleAddIfNode()} button key={"If"}>
+                <ListItemIcon>
+                    <MemoryIcon />
+                </ListItemIcon>
+                <ListItemText primary={'If'} />
             </ListItem>
 
             <ListItem onClick={() => showNodes()} button key={"Show List"}>
