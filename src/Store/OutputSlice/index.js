@@ -10,11 +10,11 @@ export const OutputSlice = createSlice({
   reducers: {
     
     resetOutput : (state) => {
-        state.output = [];
+      state.output = [];
     },
 
     addOutput : (state , action) => {
-        state.output.push(action.payload);
+      state.output.push(action.payload);
     }
 
   },
