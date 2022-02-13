@@ -66,8 +66,7 @@ class Compiler {
             let var_list = [];
             let m;
             let varValCopy = varValue;
-            let exec_val;
-
+            let exec_val = null;
             let exec_string = '';
 
             while ((m=re.exec(varValCopy)) !== null) {
@@ -78,14 +77,36 @@ class Compiler {
 
             for(let i = 0; i < var_list.length; i++){
                 let var_value = this._get_local_var_value(var_list[i]);
-                let x1 = varValCopy.replaceAll(`#${var_list[i]}` , var_value);
-                let x2 = x1.replaceAll(`#${var_list[i]}` , '');
-                exec_string = x2;
+                varValCopy = varValCopy.replaceAll(`#${var_list[i]}` , var_value);
+                varValCopy = varValCopy.replaceAll(`#${var_list[i]}` , '');
             }
+
+            exec_string += varValCopy;
             
-            console.log('the cleaned string is ' , this._add_op_to_execute_string('exec_val' , operator , exec_string));
+            exec_string =  this._add_op_to_execute_string('exec_val' , operator , exec_string);
+
+            console.log('exec string : ' , exec_string);
+
+            let var_val_before = this._get_local_var_value(varName);
+
+            exec_val = var_val_before;
+            eval(exec_string);
+
+            console.log('exec val : ' , exec_val);
+
+            this.dispatch( this.reducers.updateVar({varName : varName , varValue:exec_val}) );
+            this._set_local_state(varName , exec_val);
 
         }else{
+            let exec_string = this._add_op_to_execute_string("exec_val" , operator , varValue);
+            let var_val_before = this._get_local_var_value(varName);
+            let exec_val = var_val_before;
+            eval(exec_string);
+            console.log('exec string : ' , exec_val);
+
+            this.dispatch( this.reducers.updateVar({varName : varName , varValue:exec_val}) );
+            this._set_local_state(varName , exec_val);
+
 
         }
 

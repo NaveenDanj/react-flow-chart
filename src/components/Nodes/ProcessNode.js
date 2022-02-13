@@ -78,18 +78,10 @@ function ProcessNode(props) {
                                 onChange={(e) => setOperator(e.target.value) }
                             >   
                                 <MenuItem value={'='}>=</MenuItem>
-                                <MenuItem value={'-'}>-</MenuItem>
-                                <MenuItem value={'/'}>/</MenuItem>
-                                <MenuItem value={'*'}>*</MenuItem>
                                 <MenuItem value={'+='}>+=</MenuItem>
                                 <MenuItem value={'-='}>-=</MenuItem>
                                 <MenuItem value={'/='}>/=</MenuItem>
                                 <MenuItem value={'*='}>*=</MenuItem>
-                                <MenuItem value={'%'}>%</MenuItem>
-                                <MenuItem value={'+'}>+</MenuItem>
-                                <MenuItem value={'-'}>-</MenuItem>
-                                <MenuItem value={'/'}>/</MenuItem>
-                                <MenuItem value={'*'}>*</MenuItem>
                             </Select>
 
                     </FormControl>
