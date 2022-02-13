@@ -10,7 +10,7 @@ class Compiler {
         // });
 
         for(let i = 0; i < varList.length; i++){
-            this.localState.push({key : varList[i].key , name : varList[i].name , value : varList[i].value});
+            this.localState.push({key : varList[i].key , name : varList[i].name , value : varList[i].value , dataType : varList[i].dataType});
         }
 
     }
@@ -110,9 +110,6 @@ class Compiler {
 
         }
 
-
-        // this.dispatch( this.reducers.updateVar({varName , varValue}) );
-        // this._set_local_state(varName , varValue);
     }
 
     compileOutput(codeBlockArr){
@@ -131,14 +128,37 @@ class Compiler {
     compileInput(codeBlockArr){
         console.log(codeBlockArr);
         let varName = codeBlockArr[1].replaceAll("'" , "");
+        let varObject = this._get_local_var_object(varName);
         let displayText = codeBlockArr[2];
+
+        console.log('varObject : ' , varObject);
 
         let inp = prompt(displayText);
 
-        console.log('input is : ' , inp);
-        
-        this.dispatch( this.reducers.updateVar({varName : varName , varValue : inp}) );
-        this._set_local_state(varName , inp);
+        if(varObject.dataType == 'number'){
+
+            let varValue = +inp;
+            this.dispatch( this.reducers.updateVar({varName : varName , varValue:varValue}) );
+            this._set_local_state(varName , varValue);
+            console.log('number val')
+
+        }else if(varObject.dataType == 'string'){
+
+            let varValue = inp;
+            this.dispatch( this.reducers.updateVar({varName : varName , varValue:varValue}) );
+            this._set_local_state(varName , varValue);
+            console.log('string val')
+
+        }else if(varObject.dataType == 'boolean'){
+
+            let varValue = inp === 'true';
+            this.dispatch( this.reducers.updateVar({varName : varName , varValue:varValue}) );
+            this._set_local_state(varName , varValue);
+            console.log('boolean val')
+
+        }
+
+        console.log('end of input');
 
     }
 
@@ -176,6 +196,14 @@ class Compiler {
             }
         }
 
+    }
+
+    _get_local_var_object(varName){
+        for(let i = 0; i < this.localState.length; i++){
+            if(this.localState[i].name === varName){
+                return this.localState[i];
+            }
+        }
     }
 
     _add_op_to_execute_string(varName , op , string){

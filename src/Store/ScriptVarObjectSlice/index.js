@@ -14,6 +14,7 @@ export const nodesSlice = createSlice({
         key : action.payload.key,
         name : action.payload.name,
         value : action.payload.value,
+        dataType : action.payload.dataType,
       }
     },
 
