@@ -28,15 +28,12 @@ function Canvas() {
       ...params,
     }
 
-    dispatch( setNodes( addEdge(customParams, Nodes) ) );
-    console.log(Nodes);
-
     for(let i = 0; i < Nodes.length; i++){
 
       if(Nodes[i].id === customParams.source){
         Nodes[i].nodeData.setNextNode(null);
 
-        if(Nodes[i].nodeData.type === 'ifNode'){
+        if(Nodes[i].type === 'ifNode'){
 
           console.log('if node')
           
@@ -72,6 +69,9 @@ function Canvas() {
       }
 
     }
+
+    dispatch( setNodes( addEdge(customParams, Nodes) ) );
+    console.log(Nodes);
 
   } 
 

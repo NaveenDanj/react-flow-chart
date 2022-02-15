@@ -25,6 +25,14 @@ function IfNode(props) {
         </Grid><br/>
 
         <Handle
+            id="input"
+            type="target"
+            position="top"
+            style={{ background: '#555' }}
+            isConnectable={true}
+        />
+
+        <Handle
             position="bottom"
             id="truePath"
             style={{ bottom: 10, background: '#555' }}
