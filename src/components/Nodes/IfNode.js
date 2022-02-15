@@ -22,18 +22,18 @@ function IfNode(props) {
 
             </Grid>
 
-        </Grid>
+        </Grid><br/>
 
         <Handle
-            position="left"
-            id="b"
+            position="bottom"
+            id="truePath"
             style={{ bottom: 10, background: '#555' }}
             isConnectable={true}
         />
 
         <Handle
             position="right"
-            id="a"
+            id="falsePath"
             style={{ top: 10, background: '#555' }}
             isConnectable={true}
         />
