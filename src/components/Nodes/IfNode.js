@@ -8,7 +8,9 @@ import { Handle } from 'react-flow-renderer';
 function IfNode(props) {
   return (
     <div>
-        <label>If</label>
+        <center>
+            <label>If</label>
+        </center>
         <Grid container spacing={2}>
 
             <Grid item xs={12}>

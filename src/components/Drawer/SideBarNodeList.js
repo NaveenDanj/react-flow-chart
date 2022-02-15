@@ -139,13 +139,18 @@ function SideBarNodeList() {
 
         let newNode = {
             id :  Nodes.length + 1 + '',
-            data: { label: (
-                <IfNode id={Nodes.length + 1 + ''}  />
-            ) },
+            type : 'ifNode',
+            data: { conditionTrue : '', conditionFalse : ''},
             position: { x: 250, y: 25 },
             isHidden : false,
             style: { border: '1px solid #777', width : 'auto'   },
-            nodeData : new Node({id : Nodes.length + 1 + '' } , 'twoWay', 'If' , null)
+            nodeData : new Node({id : Nodes.length + 1 + '' } , 'twoWay', 'If' , null),
+            metaData : {
+                condition : '',
+                conditionTrue : false,
+                conditionTrueTarget : '',
+                conditionFalseTarget : ''
+            }
         }
 
         lastNodes.push(newNode);
