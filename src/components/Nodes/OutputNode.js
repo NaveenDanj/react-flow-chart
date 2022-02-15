@@ -27,7 +27,7 @@ function OutputNode(props) {
         for(let i = 0; i < Nodes.length; i++){
 
             if(Nodes[i].id === props.id){
-                Nodes[i].nodeData.setCodeBlock(`output-'${displayText}'-${varName}`);
+                Nodes[i].nodeData.setCodeBlock(`output~'${displayText}'~${varName}`);
                 break;
             }
 

@@ -10,7 +10,7 @@ class Compiler {
         // });
 
         for(let i = 0; i < varList.length; i++){
-            this.localState.push({key : varList[i].key , name : varList[i].name , value : varList[i].value});
+            this.localState.push({key : varList[i].key , name : varList[i].name , value : varList[i].value , dataType : varList[i].dataType});
         }
 
     }
@@ -27,7 +27,7 @@ class Compiler {
 
         console.log(codeBlock);
 
-        let codeBlockArr = codeBlock.split('-');
+        let codeBlockArr = codeBlock.split('~');
 
         if(codeBlockArr[0] == 'start'){
             this.compileStart(codeBlockArr);
@@ -60,11 +60,55 @@ class Compiler {
         let operator = codeBlockArr[2];
         let varValue = codeBlockArr[3];
 
-        let intialVarValue = this._get_var_value(varName);
-        console.log('initial var value is : ' , intialVarValue);
-        this.dispatch( this.reducers.updateVar({varName , varValue}) );
-        this._set_local_state(varName , varValue);
-        console.log('initial var value is : ' , intialVarValue);
+        if(varValue.includes('#')){
+            //includes a variable
+            let re = /#(\S+)\b/g;
+            let var_list = [];
+            let m;
+            let varValCopy = varValue;
+            let exec_val = null;
+            let exec_string = '';
+
+            while ((m=re.exec(varValCopy)) !== null) {
+                var_list.push(m[1]);  
+            }
+
+            console.log('var_list : ' , var_list);
+
+            for(let i = 0; i < var_list.length; i++){
+                let var_value = this._get_local_var_value(var_list[i]);
+                varValCopy = varValCopy.replaceAll(`#${var_list[i]}` , var_value);
+                varValCopy = varValCopy.replaceAll(`#${var_list[i]}` , '');
+            }
+
+            exec_string += varValCopy;
+            
+            exec_string =  this._add_op_to_execute_string('exec_val' , operator , exec_string);
+
+            console.log('exec string : ' , exec_string);
+
+            let var_val_before = this._get_local_var_value(varName);
+
+            exec_val = var_val_before;
+            eval(exec_string);
+
+            console.log('exec val : ' , exec_val);
+
+            this.dispatch( this.reducers.updateVar({varName : varName , varValue:exec_val}) );
+            this._set_local_state(varName , exec_val);
+
+        }else{
+            let exec_string = this._add_op_to_execute_string("exec_val" , operator , varValue);
+            let var_val_before = this._get_local_var_value(varName);
+            let exec_val = var_val_before;
+            eval(exec_string);
+            console.log('exec string : ' , exec_val);
+
+            this.dispatch( this.reducers.updateVar({varName : varName , varValue:exec_val}) );
+            this._set_local_state(varName , exec_val);
+
+
+        }
 
     }
 
@@ -84,14 +128,37 @@ class Compiler {
     compileInput(codeBlockArr){
         console.log(codeBlockArr);
         let varName = codeBlockArr[1].replaceAll("'" , "");
+        let varObject = this._get_local_var_object(varName);
         let displayText = codeBlockArr[2];
+
+        console.log('varObject : ' , varObject);
 
         let inp = prompt(displayText);
 
-        console.log('input is : ' , inp);
-        
-        this.dispatch( this.reducers.updateVar({varName : varName , varValue : inp}) );
-        this._set_local_state(varName , inp);
+        if(varObject.dataType == 'number'){
+
+            let varValue = +inp;
+            this.dispatch( this.reducers.updateVar({varName : varName , varValue:varValue}) );
+            this._set_local_state(varName , varValue);
+            console.log('number val')
+
+        }else if(varObject.dataType == 'string'){
+
+            let varValue = inp;
+            this.dispatch( this.reducers.updateVar({varName : varName , varValue:varValue}) );
+            this._set_local_state(varName , varValue);
+            console.log('string val')
+
+        }else if(varObject.dataType == 'boolean'){
+
+            let varValue = inp === 'true';
+            this.dispatch( this.reducers.updateVar({varName : varName , varValue:varValue}) );
+            this._set_local_state(varName , varValue);
+            console.log('boolean val')
+
+        }
+
+        console.log('end of input');
 
     }
 
@@ -129,6 +196,18 @@ class Compiler {
             }
         }
 
+    }
+
+    _get_local_var_object(varName){
+        for(let i = 0; i < this.localState.length; i++){
+            if(this.localState[i].name === varName){
+                return this.localState[i];
+            }
+        }
+    }
+
+    _add_op_to_execute_string(varName , op , string){
+        return `${varName} ${op} ${string}`;
     }
 
 }

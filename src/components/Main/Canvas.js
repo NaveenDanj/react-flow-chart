@@ -3,6 +3,14 @@ import ReactFlow , {Background , Controls , addEdge} from 'react-flow-renderer';
 import { useSelector , useDispatch } from 'react-redux';
 import { setNodes } from '../../Store/NodeSlice'
 
+import IfNode from '../Nodes/IfNode';
+
+const nodeTypes = {
+  ifNode: IfNode,
+};
+
+
+
 
 function Canvas() {
 
@@ -43,6 +51,7 @@ function Canvas() {
           elements={Nodes}
           onEdgeUpdate={onEdgeUpdate}
           onConnect={onConnect}
+          nodeTypes={nodeTypes}
         >
           <Background color='#888' gap={16} />
           <Controls />

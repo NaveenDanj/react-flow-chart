@@ -27,7 +27,7 @@ function ProcessNode(props) {
         for(let i = 0; i < Nodes.length; i++){
 
             if(Nodes[i].id === props.id){
-                Nodes[i].nodeData.setCodeBlock(`process-${varName}-${operator}-${varValue}`);
+                Nodes[i].nodeData.setCodeBlock(`process~${varName}~${operator}~${varValue}`);
                 break;
             }
 
@@ -78,18 +78,10 @@ function ProcessNode(props) {
                                 onChange={(e) => setOperator(e.target.value) }
                             >   
                                 <MenuItem value={'='}>=</MenuItem>
-                                <MenuItem value={'-'}>-</MenuItem>
-                                <MenuItem value={'/'}>/</MenuItem>
-                                <MenuItem value={'*'}>*</MenuItem>
                                 <MenuItem value={'+='}>+=</MenuItem>
                                 <MenuItem value={'-='}>-=</MenuItem>
                                 <MenuItem value={'/='}>/=</MenuItem>
                                 <MenuItem value={'*='}>*=</MenuItem>
-                                <MenuItem value={'%'}>%</MenuItem>
-                                <MenuItem value={'+'}>+</MenuItem>
-                                <MenuItem value={'-'}>-</MenuItem>
-                                <MenuItem value={'/'}>/</MenuItem>
-                                <MenuItem value={'*'}>*</MenuItem>
                             </Select>
 
                     </FormControl>
