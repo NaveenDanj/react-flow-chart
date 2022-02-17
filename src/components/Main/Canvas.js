@@ -9,7 +9,16 @@ const nodeTypes = {
   ifNode: IfNode,
 };
 
+const getNodeFromId = (id , Nodes) => {
 
+  for(let i = 0; i < Nodes.length; i++){
+    if(Nodes[i].id === id){
+      return Nodes[i];
+    }
+  }
+
+
+}
 
 
 function Canvas() {
@@ -38,16 +47,14 @@ function Canvas() {
           console.log('if node')
           
           if(customParams.sourceHandle === 'truePath'){
-            
-            console.log('true path added')
-            
+                        
             customParams = {
               ...customParams,
               label : 'True',
               animated: true,
             }
 
-            console.log('custom params are ' , customParams);
+            Nodes[i].nodeData.additionalData.trueNode = getNodeFromId(customParams.target , Nodes);
 
           }else{
             customParams = {
@@ -55,6 +62,9 @@ function Canvas() {
               label : 'False',
               animated: true,
             }
+
+            Nodes[i].nodeData.additionalData.falseNode = getNodeFromId(customParams.target , Nodes);
+
           }
 
         }
