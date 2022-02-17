@@ -5,7 +5,8 @@ class Node {
         this.data = data;
         this.nodeType = type; //oneway or twoway
         this.codeBlock = null;
-        this.type = nodeBlockType
+        this.type = nodeBlockType;
+        this.additionalData = {};
     }
 
     getNextNode(){

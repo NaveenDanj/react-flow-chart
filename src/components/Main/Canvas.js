@@ -9,7 +9,16 @@ const nodeTypes = {
   ifNode: IfNode,
 };
 
+const getNodeFromId = (id , Nodes) => {
 
+  for(let i = 0; i < Nodes.length; i++){
+    if(Nodes[i].id === id){
+      return Nodes[i];
+    }
+  }
+
+
+}
 
 
 function Canvas() {
@@ -23,16 +32,45 @@ function Canvas() {
 
   const onConnect = (params) => {
     console.log(params);
-    dispatch( setNodes( addEdge(params, Nodes) ) );
-    console.log(Nodes);
+
+    let customParams = {
+      ...params,
+    }
 
     for(let i = 0; i < Nodes.length; i++){
 
-      if(Nodes[i].id === params.source){
+      if(Nodes[i].id === customParams.source){
         Nodes[i].nodeData.setNextNode(null);
 
+        if(Nodes[i].type === 'ifNode'){
+
+          console.log('if node')
+          
+          if(customParams.sourceHandle === 'truePath'){
+                        
+            customParams = {
+              ...customParams,
+              label : 'True',
+              animated: true,
+            }
+
+            Nodes[i].nodeData.additionalData.trueNode = getNodeFromId(customParams.target , Nodes);
+
+          }else{
+            customParams = {
+              ...customParams,
+              label : 'False',
+              animated: true,
+            }
+
+            Nodes[i].nodeData.additionalData.falseNode = getNodeFromId(customParams.target , Nodes);
+
+          }
+
+        }
+
         for(let j = 0; j < Nodes.length; j++){
-          if(Nodes[j].id === params.target){
+          if(Nodes[j].id === customParams.target){
             Nodes[i].nodeData.setNextNode(Nodes[j].nodeData);
             break; 
           }
@@ -41,6 +79,9 @@ function Canvas() {
       }
 
     }
+
+    dispatch( setNodes( addEdge(customParams, Nodes) ) );
+    console.log(Nodes);
 
   } 
 

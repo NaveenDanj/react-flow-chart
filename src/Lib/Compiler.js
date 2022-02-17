@@ -25,7 +25,7 @@ class Compiler {
 
     compileLine(codeBlock){
 
-        console.log(codeBlock);
+        console.log(" split undefined " , codeBlock);
 
         let codeBlockArr = codeBlock.split('~');
 
@@ -39,6 +39,15 @@ class Compiler {
             this.compileOutput(codeBlockArr);
         }else if(codeBlockArr[0] == 'input'){
             this.compileInput(codeBlockArr);
+        }
+    }
+
+    executeAndGet(codeBlock){
+
+        let codeBlockArr = codeBlock.split('~');
+
+        if(codeBlockArr[0] == 'if'){
+            this.compileAndGetIf(codeBlockArr);
         }
 
     }
@@ -161,6 +170,63 @@ class Compiler {
         console.log('end of input');
 
     }
+
+
+    compileAndGetIf(codeBlockArr){
+
+        let condition = codeBlockArr[1];
+
+        if(condition.includes('#')){
+            //includes a variable
+            let re = /#(\S+)\b/g;
+            let var_list = [];
+            let m;
+            let conditionValCopy = condition;
+            let exec_val = null;
+            let exec_string = '';
+
+            while ((m=re.exec(conditionValCopy)) !== null) {
+                var_list.push(m[1]);  
+            }
+
+            console.log('var_list : ' , var_list);
+
+            for(let i = 0; i < var_list.length; i++){
+                let var_value = this._get_local_var_value(var_list[i]);
+                conditionValCopy = conditionValCopy.replaceAll(`#${var_list[i]}` , var_value);
+                conditionValCopy = conditionValCopy.replaceAll(`#${var_list[i]}` , '');
+            }
+
+            exec_string += conditionValCopy;
+            
+            // exec_string =  this._add_op_to_execute_string('exec_val' , operator , exec_string);
+            
+            eval("exec_val = " + exec_string);
+            return exec_val;
+
+            // let var_val_before = this._get_local_var_value(varName);
+
+            // exec_val = var_val_before;
+            // eval(exec_string);
+
+            // console.log('exec val : ' , exec_val);
+
+            // this.dispatch( this.reducers.updateVar({varName : varName , varValue:exec_val}) );
+            // this._set_local_state(varName , exec_val);
+
+        }else{
+            // let exec_string = this._add_op_to_execute_string("exec_val" , operator , varValue);
+            // let var_val_before = this._get_local_var_value(varName);
+            // let exec_val = var_val_before;
+            // eval(exec_string);
+
+        }
+
+    }
+
+
+
+
 
 
     _get_var_value(varName){
